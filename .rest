@@ -1,0 +1,25 @@
+### Request 1
+GET http://localhost:3001
+
+### Request 2
+POST http://localhost:3001/user HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Sergio Ramirez",
+    "email": "test@mail.com",
+    "password": "test"
+}
+
+### Request 3
+POST http://localhost:3001/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "test@mail.com",
+    "password": "test"
+}
+
+### Request 4
+GET http://localhost:3001/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXJJZCI6IjY1OGEzNDcwNjc3ZjhiODUxOGM2MjZmYSIsImVtYWlsIjoidGVzdEBtYWlsLmNvbSJ9LCJpYXQiOjE3MDM1NTk2MzUsImV4cCI6MTcwMzU1OTY0NX0.hAMRQOS-qPZn8WTQBrSXD9tBc_Vy9T7wfPDUqusSE-c

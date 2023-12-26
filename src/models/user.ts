@@ -1,4 +1,4 @@
-import { Schema, Document, model, Model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface IUser {
@@ -12,22 +12,38 @@ interface UserDocument extends IUser, Document {
 };
 
 const userSchema = new Schema({
-    fullName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    fullName: {
+        type: String,
+        required: true,
+        validate: { 
+            validator: function(value: string){
+                return value.trim().length > 0;
+            },
+            message: "Name can't be null"
+        }
+    },
+    email: { 
+        type: String, 
+        required: true, 
+        unique: true 
+    },
+    password: { 
+        type: String, 
+        required: true 
+    }
 })
 
-userSchema.methods.verifyPassword = function(enteredPassword: string) {
+userSchema.methods.verifyPassword = function (enteredPassword: string) {
     return bcrypt.compare(enteredPassword, this.password);
 }
 
-userSchema.pre('save', function(next){
+userSchema.pre('save', function (next) {
     const user = this;
 
-    if(!user.isModified('password')) return next();
+    if (!user.isModified('password')) return next();
 
     bcrypt.genSalt(10, (err, salt) => {
-        if(err) return next(err);
+        if (err) return next(err);
 
         bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) return next(err);

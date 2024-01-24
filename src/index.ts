@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 import "./mongodb";
 
@@ -13,11 +13,11 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req: Request, res: Response) => {
-    res.json({status: "ok"})
-})
+  res.json({ status: "ok" });
+});
 
-app.use('/auth', authRoutes);
-app.use(authorizationMiddleware)
-app.use('/user', userRoutes);
+app.use("/auth", authRoutes);
+app.use(authorizationMiddleware);
+app.use("/user", userRoutes);
 
-app.listen(process.env.LISTEN_ADDR)
+app.listen(process.env.LISTEN_ADDR);
